@@ -13,6 +13,6 @@ public class JoinTpl implements Template {
 
 
 
-        return "";
+        return sb.toString();
     }
 }
