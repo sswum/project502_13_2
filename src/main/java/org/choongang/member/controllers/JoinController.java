@@ -48,20 +48,19 @@ public class JoinController extends AbstractController { //알트+인서트 눌�
                 .confirmPw(confirmPw)
                 .userNm(userNm)
                 .build();
-try{
-        //회원 가입 처리...
-        Service service = MemberServiceLocator.getInstance().find(Menu.JOIN);
-        service.process(form);
 
-        //회원 가입 성공 시 -> 로그인 화면 이동
-        Router.change(Menu.LOGIN);
-    } catch (RuntimeException e) {        //회원가입 실패 시
-    Sysytem.err.println(e.getMessage());
-    router.change(Menu.JOIN);
+        Router router = MainRouter.getInstance();
+        try{
+            //회원 가입 처리...
+            Service service = MemberServiceLocator.getInstance().find(Menu.JOIN);
+            service.process(form);
 
-}
-
-
+            //회원 가입 성공 시 -> 로그인 화면 이동
+            router.change(Menu.LOGIN);
+        } catch (RuntimeException e) {        //회원가입 실패 시
+            System.err.println(e.getMessage());
+            router.change(Menu.JOIN);
+        }
     }
 
 }
