@@ -52,10 +52,11 @@ public abstract class AbstractController implements Controller {
      * @param message : 항목 메세지
      * @param predicate : 판별식
      * @return
-     */
+     **/
     protected String promptWithValidation(String message, Predicate<String> predicate) {
         String str = null;
         do {
+            System.out.print("");
             str = sc.nextLine();
         } while(!predicate.test(str));
 
