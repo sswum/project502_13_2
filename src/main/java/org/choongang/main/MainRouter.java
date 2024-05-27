@@ -34,6 +34,7 @@ public class MainRouter implements Router {
             default: controller = new MainController();
         }
 
+
         controller.run(); // common(), show(), prompt()
     }
 

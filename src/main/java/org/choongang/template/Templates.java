@@ -1,3 +1,4 @@
+
 package org.choongang.template;
 
 import org.choongang.global.constants.Menu;
@@ -6,6 +7,7 @@ import org.choongang.template.member.JoinTpl;
 import org.choongang.template.member.LoginTpl;
 import org.choongang.template.member.MypageTpl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Templates {
@@ -13,20 +15,19 @@ public class Templates {
     private Map<Menu, Template> tpls;
 
     private Templates() {
+        tpls = new HashMap<>();
     }
 
     public static Templates getInstance() {
         if (instance == null) {
             instance = new Templates();
         }
+
         return instance;
     }
 
-
     public void render(Menu menu) {
-
         System.out.println(find(menu).getTpl());
-
     }
 
     public Template find(Menu menu) {
@@ -36,30 +37,22 @@ public class Templates {
         }
 
         switch (menu) {
-            case JOIN:
-                tpl = new JoinTpl();
-            case LOGIN:
-                tpl = new LoginTpl();
-            case MYPAGE:
-                tpl = new MypageTpl();
-            default:
-                tpl = new MainTpl();
+            case JOIN: tpl = new JoinTpl();
+            case LOGIN: tpl = new LoginTpl();
+            case MYPAGE: tpl = new MypageTpl();
+            default: tpl = new MainTpl();
         }
 
         tpls.put(menu, tpl);
+
         return tpl;
     }
 
     public String line() {
-        return "------------------------------------\n";
-
-
+        return "-----------------------------------\n";
     }
 
     public String doubleLine() {
-        return "================================\n";
+        return "===================================\n";
     }
-
 }
-
-
