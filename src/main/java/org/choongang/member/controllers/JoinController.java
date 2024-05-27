@@ -1,8 +1,11 @@
 package org.choongang.member.controllers;
 
 import org.choongang.global.AbstractController;
+import org.choongang.global.Router;
+import org.choongang.global.Service;
 import org.choongang.global.constants.Menu;
 import org.choongang.main.MainRouter;
+import org.choongang.member.services.MemberServiceLocator;
 import org.choongang.template.Templates;
 
 import java.util.function.Predicate;
@@ -23,12 +26,12 @@ public class JoinController extends AbstractController { //알트+인서트 눌�
 
     @Override
     public void prompt() {  //prompt를 재정의해서 아이디내용을 바꿀 수 있다.
-        String userId = promptWithValidation("아이디(6자리 이상): " ,
-                s -> s.length()>=6);
+        String userId = promptWithValidation("아이디(6자리 이상): ",
+                s -> s.length() >= 6);
         String userPw = promptWithValidation("비밀번호(8자리 이상): ",
-                s-> s.length()>=8);
+                s -> s.length() >= 8);
 
-        String confirmPw =promptWithValidation("비밀번호 확인: ", s->
+        String confirmPw = promptWithValidation("비밀번호 확인: ", s ->
         {
             boolean match = s.equals(userPw);
             if (!match) {
@@ -45,14 +48,18 @@ public class JoinController extends AbstractController { //알트+인서트 눌�
                 .confirmPw(confirmPw)
                 .userNm(userNm)
                 .build();
-
+try{
         //회원 가입 처리...
-        System.out.println(form);
+        Service service = MemberServiceLocator.getInstance().find(Menu.JOIN);
+        service.process(form);
 
         //회원 가입 성공 시 -> 로그인 화면 이동
+        Router.change(Menu.LOGIN);
+    } catch (RuntimeException e) {        //회원가입 실패 시
+    Sysytem.err.println(e.getMessage());
+    router.change(Menu.JOIN);
 
-        MainRouter.getInstance().change(Menu.LOGIN);
-
+}
 
 
     }
