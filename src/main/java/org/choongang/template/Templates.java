@@ -12,7 +12,9 @@ public class Templates {
     private static Templates instance;
     private Map<Menu, Template> tpls;
 
-    private Templates() {}
+    private Templates() {
+    }
+
     public static Templates getInstance() {
         if (instance == null) {
             instance = new Templates();
@@ -37,14 +39,25 @@ public class Templates {
             case JOIN:
                 tpl = new JoinTpl();
             case LOGIN:
-                tpl =new LoginTpl();
+                tpl = new LoginTpl();
             case MYPAGE:
                 tpl = new MypageTpl();
-            default : tpl= new MainTpl();
+            default:
+                tpl = new MainTpl();
         }
 
         tpls.put(menu, tpl);
         return tpl;
+    }
+
+    public String line() {
+        return "------------------------------------\n";
+
+
+    }
+
+    public String doubleLine() {
+        return "================================\n";
     }
 
 }
